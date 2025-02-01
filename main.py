@@ -87,4 +87,4 @@ if __name__ == "__main__":
     #get_ingredients()
     website = get_website_data("hamburger buns")
     images = get_images("hamburger buns")
-    print(mergeDataImage(website, images))
+    mergeDataImage(website, images)
