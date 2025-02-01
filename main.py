@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import sys
 import urllib.request
 from bs4 import BeautifulSoup
+import re
 
 load_dotenv()
 
@@ -35,13 +36,13 @@ def get_website_data(ingredient):
 
         data = [p.text.strip() for p in soup.find_all('p')]
 
-        data = clean_data(data)
-        print(data)
-        return data
+        cleaned_data = clean_data(data)
+        #print(cleaned_data)
+        return cleaned_data
     except urllib.error.URLError as e:
         return f"Error fetching data: {e}"
 
-def get_images_from_website(ingredient):
+def get_images(ingredient):
     ingredient = ingredient.replace(" ", "%20")
 
     url = f"https://www.shoprite.com/sm/pickup/rsid/3000/results?q={ingredient}"
@@ -65,6 +66,21 @@ def get_images_from_website(ingredient):
     except urllib.error.URLError as e:
         return f"Error fetching data: {e}"
 
+def clean_data(data):
+    result = []
+
+    price_pattern = re.compile(r'(.+),\s*\$([\d.]+)$')
+
+    for item in data:
+        match = price_pattern.match(item)
+        if match:
+            name = match.group(1)
+            price = match.group(2)
+            result.append([name, price])
+
+    return result
+
 if __name__ == "__main__":
     #get_ingredients()
+    #get_images("hamburger buns")
     get_website_data("hamburger buns")
