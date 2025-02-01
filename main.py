@@ -1,6 +1,8 @@
 import openai
 from dotenv import load_dotenv
 import sys
+import urllib.request
+from bs4 import BeautifulSoup
 
 load_dotenv()
 
@@ -33,8 +35,33 @@ def get_website_data(ingredient):
 
         data = [p.text.strip() for p in soup.find_all('p')]
 
+        data = clean_data(data)
         print(data)
         return data
+    except urllib.error.URLError as e:
+        return f"Error fetching data: {e}"
+
+def get_images_from_website(ingredient):
+    ingredient = ingredient.replace(" ", "%20")
+
+    url = f"https://www.shoprite.com/sm/pickup/rsid/3000/results?q={ingredient}"
+    
+    try:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        }
+
+        req = urllib.request.Request(url, headers=headers)
+
+        with urllib.request.urlopen(req) as response:
+            html_content = response.read()
+
+        soup = BeautifulSoup(html_content, 'html.parser')
+
+        images = [img['src'] for img in soup.find_all('img') if 'src' in img.attrs]
+
+        del images[:2]
+        return images
     except urllib.error.URLError as e:
         return f"Error fetching data: {e}"
 
