@@ -3,9 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ShopWise</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom, #f7f4eb, #ffffff);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3a5523;
+        }
+
+        /* Buttons */
+        button {
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .sign-in {
+            background: white;
+            border: 1px solid #3a5523;
+            color: #3a5523;
+        }
+
+        .sign-up {
+            background: #3a5523;
+            color: white;
+        }
+
+        /* Main Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+        }
+
+        /* Sidebar */
+        aside {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Filters */
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        /* Recipe Input */
+        .recipe-input {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .recipe-input input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .recipe-input button {
+            background: #3a5523;
+            color: white;
+            padding: 10px 16px;
+            width: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Available Ingredients */
+        .available-ingredients {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .available-ingredients p {
+            color: #888;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello!!</h1>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <h1>ShopWise</h1>
+            <div>
+                <button class="sign-in">Sign In</button>
+                <button class="sign-up">Sign Up</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="grid">
+            <!-- Filters Sidebar -->
+            <aside>
+                <div class="card">
+                    <h2>Filters</h2>
+                    <label>Price Range</label>
+                    <select>
+                        <option>Select range</option>
+                    </select>
+                    
+                    <label>Brand Preference</label>
+                    <select>
+                        <option>Select preference</option>
+                    </select>
+                </div>
+
+                <div class="card">
+                    <h2>Shopping List</h2>
+                    <p>No items added yet</p>
+                    <button>🛒 View Cart</button>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main>
+                <div class="recipe-input card">
+                    <h2>What would you like to cook?</h2>
+                    <input type="text" placeholder="e.g., Hamburger, Pasta Carbonara">
+                    <label>Diet Type</label>
+                    <select>
+                        <option>Regular</option>
+                    </select>
+                    <button>➕ Add Recipe</button>
+                </div>
+
+                <div class="available-ingredients card">
+                    <h2>Available Ingredients</h2>
+                    <p>Enter a recipe above to see available ingredients and prices</p>
+                </div>
+            </main>
+        </div>
+    </div>
+
 </body>
 </html>
