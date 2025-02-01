@@ -7,8 +7,7 @@ import re
 
 load_dotenv()
 
-def get_ingredients():
-    user_input = "Hamburger"
+def get_ingredients(user_input):
 
     response = openai.chat.completions.create(
                 model="gpt-4o-mini",
@@ -17,7 +16,7 @@ def get_ingredients():
                 {"role": "user", "content": f"Here is the name of the dish: {user_input}. Return ONLY the ingredients seperated by commas. No other text"} ]
             )
 
-    print(response.choices[0].message.content)
+    return(response.choices[0].message.content)
 
 def get_website_data(ingredient):
     ingredient = ingredient.replace(" ", "%20")
@@ -84,7 +83,9 @@ def mergeDataImage(data_list, img_list):
     return [item + [img] for item, img in zip(data_list, img_list)]
 
 if __name__ == "__main__":
-    #get_ingredients()
+    dish = "hamburger"
+    print(get_ingredients(dish))
+    sys.exit()
     website = get_website_data("hamburger buns")
     images = get_images("hamburger buns")
     mergeDataImage(website, images)
