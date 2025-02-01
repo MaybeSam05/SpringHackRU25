@@ -1,5 +1,6 @@
 import openai
 from dotenv import load_dotenv
+import sys
 
 load_dotenv()
 
@@ -14,6 +15,29 @@ def get_ingredients():
             )
 
     print(response.choices[0].message.content)
-        
+
+def get_website_data(ingredient):
+    ingredient = ingredient.replace(" ", "%20")
+
+    url = f"https://www.shoprite.com/sm/pickup/rsid/3000/results?q={ingredient}"
+
+    try:
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
+
+        req = urllib.request.Request(url, headers=headers)
+
+        with urllib.request.urlopen(req) as response:
+            html_content = response.read()
+
+        soup = BeautifulSoup(html_content, 'html.parser')
+
+        data = [p.text.strip() for p in soup.find_all('p')]
+
+        print(data)
+        return data
+    except urllib.error.URLError as e:
+        return f"Error fetching data: {e}"
+
 if __name__ == "__main__":
-    get_ingredients()
+    #get_ingredients()
+    get_website_data("hamburger buns")
