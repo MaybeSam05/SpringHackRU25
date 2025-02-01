@@ -84,8 +84,7 @@ def mergeDataImage(data_list, img_list):
 
 if __name__ == "__main__":
     dish = "hamburger"
-    print(get_ingredients(dish))
-    sys.exit()
+    get_ingredients(dish)
     website = get_website_data("hamburger buns")
     images = get_images("hamburger buns")
     mergeDataImage(website, images)
