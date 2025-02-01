@@ -80,7 +80,11 @@ def clean_data(data):
 
     return result
 
+def mergeDataImage(data_list, img_list):
+    return [item + [img] for item, img in zip(data_list, img_list)]
+
 if __name__ == "__main__":
     #get_ingredients()
-    #get_images("hamburger buns")
-    get_website_data("hamburger buns")
+    website = get_website_data("hamburger buns")
+    images = get_images("hamburger buns")
+    print(mergeDataImage(website, images))
