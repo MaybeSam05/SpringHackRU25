@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def main():
+def get_ingredients():
     user_input = "Hamburger"
 
     response = openai.chat.completions.create(
@@ -16,4 +16,4 @@ def main():
     print(response.choices[0].message.content)
         
 if __name__ == "__main__":
-    main()
+    get_ingredients()
