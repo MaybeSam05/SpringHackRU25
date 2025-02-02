@@ -5,6 +5,7 @@ import os
 import sys
 
 app = Flask(__name__)
+app.secret_key = '1234'
 
 @app.route("/get-items", methods=["GET", "POST"])
 def submit():
