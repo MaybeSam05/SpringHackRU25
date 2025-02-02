@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        .ingredient {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        img {
+            max-width: 100px;
+            display: block;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Confirmation for: {{ food }}</h1>
+        <h2>Ingredients:</h2>
+        <ul>
+            {% for ingredient in ingredients %}
+                <li>{{ ingredient }}</li>
+            {% endfor %}
+        </ul>
+        
+        <h2>Details:</h2>
+        {% for ingredient_data in data %}
+            {% for item in ingredient_data %}
+                <div class="ingredient">
+                    <h3>{{ item[0] }}</h3>
+                    <p>Price: ${{ item[1] }}</p>
+                    <img src="{{ item[2] }}" alt="{{ item[0] }}">
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+</body>
+</html>

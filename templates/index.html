@@ -19,15 +19,17 @@
             <main>
                 <div class="recipe-input card">
                     <h2>What would you like to cook?</h2>
-                    <input type="text" placeholder="e.g., Hamburger, Pasta, Pizza, ...">
-                    <h2>Filters</h2>
-                    <select>
-                        <option>Select range</option>
-                        <option>None</option>
-                        <option>High to Low</option>
-                        <option>Low to High</option>
-                    </select>
-                    <button>Add Meal</button>
+                    <form action="/get-items" method="POST">
+                        <input type="text" name="user-input" placeholder="e.g., Hamburger, Pasta, Pizza, ...">
+                        <h2>Filters</h2>
+                        <select>
+                            <option>Select range</option>
+                            <option>None</option>
+                            <option>High to Low</option>
+                            <option>Low to High</option>
+                        </select>
+                        <button type="submit">Add Meal</button>
+                    </form>
                 </div>
 
                 <div class="available-ingredients card">
