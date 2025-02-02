@@ -8,43 +8,77 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 1200px;
             margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
         }
         .ingredient {
-            margin: 20px 0;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            margin-bottom: 30px;
+            text-align: left;
         }
-        img {
-            max-width: 100px;
-            display: block;
-            margin: 10px auto;
+        .ingredient h2 {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            align-items: center;
+            justify-items: center;
+        }
+        .product {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .product p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #333;
+        }
+        .product .price {
+            font-weight: bold;
+            color: #007BFF;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Confirmation for: {{ food }}</h1>
-        <h2>Ingredients:</h2>
-        <ul>
-            {% for ingredient in ingredients %}
-                <li>{{ ingredient }}</li>
-            {% endfor %}
-        </ul>
-        
-        <h2>Details:</h2>
-        {% for ingredient_data in data %}
-            {% for item in ingredient_data %}
-                <div class="ingredient">
-                    <h3>{{ item[0] }}</h3>
-                    <p>Price: ${{ item[1] }}</p>
-                    <img src="{{ item[2] }}" alt="{{ item[0] }}">
+        <h1>{{ food }}</h1>
+        {% for i in range(data|length) %}
+            <div class="ingredient">
+                <h2>{{ ingredients[i].title() }}</h2>
+                <div class="products">
+                    {% for item in data[i] %}
+                        <div class="product">
+                            <img src="{{ item[2] }}" alt="{{ item[0] }}">
+                            <p>{{ item[0] }}</p>
+                            <p class="price">${{ item[1] }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            </div>
         {% endfor %}
     </div>
 </body>
