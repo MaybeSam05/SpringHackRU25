@@ -3,9 +3,10 @@ from  main import get_ingredients, get_website_data, get_images, clean_data, mer
 import json
 import os
 import sys
+import random
 
 app = Flask(__name__)
-app.secret_key = '1234'
+app.secret_key = generateKey()
 
 @app.route("/get-items", methods=["GET", "POST"])
 def submit():
@@ -81,6 +82,9 @@ def view_cart():
 def home():
     cart_items = session.get('cart', [])
     return render_template("index.html", cart_count=len(cart_items))
+
+def generateKey():
+    return str(random.randint(100000000, 999999999))
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
