@@ -7,6 +7,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        .product.selected {
+            background-color: #90EE90;
+            transition: background-color 0.3s;
+        }
+        .cart-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .cart-button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -17,7 +37,7 @@
                 <h2>{{ ingredients[i].title() }}</h2>
                 <div class="products">
                     {% for item in data[i] %}
-                        <div class="product card">
+                        <div class="product card" onclick="toggleSelection(this)" data-name="{{ item[0] }}" data-price="{{ item[1] }}" data-image="{{ item[2] }}" data-category="{{ ingredients[i] }}">
                             <img src="{{ item[2] }}" alt="{{ item[0] }}">
                             <p>{{ item[0] }}</p>
                             <p class="price">${{ item[1] }}</p>
@@ -26,6 +46,36 @@
                 </div>
             </div>
         {% endfor %}
+        <button class="cart-button" onclick="submitCart()">Add to Cart</button>
     </div>
+
+    <script>
+        function toggleSelection(element) {
+            element.classList.toggle('selected');
+        }
+
+        function submitCart() {
+            const selectedItems = document.querySelectorAll('.product.selected');
+            const cart = Array.from(selectedItems).map(item => ({
+                name: item.dataset.name,
+                price: item.dataset.price,
+                image: item.dataset.image,
+                category: item.dataset.category
+            }));
+
+            fetch('/add-to-cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ items: cart })
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = '/cart';
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 </html>

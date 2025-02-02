@@ -6,34 +6,85 @@
     <title>ShopWise</title>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        .cart-item-details {
+            flex-grow: 1;
+        }
+        .cart-item-price {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .header {
+            position: relative;
+            padding: 20px;
+        }
+        .cart-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .cart-button:hover {
+            background-color: #45a049;
+        }
+        .cart-count {
+            background-color: #ff4444;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.8em;
+            margin-left: 5px;
+        }
+    </style>
 </head>
 <body>
+    <div class="header">
         <h1 class="title">ShopWise</h1>
-        <div class="shopping-list card">
-            <h2>Shopping List</h2>
-            <p>No items added yet</p>
-            <button>🛒 View Cart</button>
-        </div>
+        <a href="/cart" class="cart-button">
+            🛒 View Cart
+            {% if cart_count > 0 %}
+                <span class="cart-count">{{ cart_count }}</span>
+            {% endif %}
+        </a>
+    </div>
 
-        <div class="grid">
-            <main>
-                <div class="recipe-input card">
-                    <h2>What would you like to cook?</h2>
-                    <form action="/get-items" method="POST">
-                        <input type="text" name="user-input" placeholder="e.g., Hamburger, Pasta, Pizza, ...">
-                        <h2>Filters</h2>
-                        <select name="filter">
-                            <option value="none">None</option>
-                            <option value="high-to-low">High to Low</option>
-                            <option value="low-to-high">Low to High</option>
-                        </select>
-                        <button type="submit">Add Meal</button>
-                    </form>
-                </div>
+    <div class="grid">
+        <main>
+            <div class="recipe-input card">
+                <h2>What would you like to cook?</h2>
+                <form action="/get-items" method="POST">
+                    <input type="text" name="user-input" placeholder="e.g., Hamburger, Pasta, Pizza, ...">
+                    <h2>Filters</h2>
+                    <select name="filter">
+                        <option value="none">None</option>
+                        <option value="high-to-low">High to Low</option>
+                        <option value="low-to-high">Low to High</option>
+                    </select>
+                    <button type="submit">Add Meal</button>
+                </form>
+            </div>
 
-                    <h2>Enter a meal above to see available ingredients and prices</h2>
-            </main>
-        </div>
+            {% if cart_count == 0 %}
+                <h2>Enter a meal above to see available ingredients and prices</h2>
+            {% endif %}
+        </main>
     </div>
 </body>
 </html>

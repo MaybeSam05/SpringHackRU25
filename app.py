@@ -1,14 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, session
 from  main import get_ingredients, get_website_data, get_images, clean_data, mergeDataImage, high_to_low
 import json
 import os
 import sys
 
 app = Flask(__name__)
-
-@app.route("/", methods=["GET", "POST"])
-def home():
-    return render_template("index.html")
+app.secret_key = 'your-secret-key-here'  # Add this line for session support
 
 @app.route("/get-items", methods=["GET", "POST"])
 def submit():
@@ -49,6 +46,41 @@ def submit():
 
         return render_template('confirm.html', food=user_input,data=final_data, ingredients=ingredients)
 
+@app.route("/add-to-cart", methods=["POST"])
+def add_to_cart():
+    cart_items = request.json.get('items', [])
+    # Get existing cart items
+    current_cart = session.get('cart', [])
+    
+    # Add new items to cart
+    current_cart.extend(cart_items)
+    
+    # Update session with new cart
+    session['cart'] = current_cart
+    # Force session to update
+    session.modified = True
+    
+    return jsonify({"success": True})
+
+@app.route("/remove-from-cart", methods=["POST"])
+def remove_from_cart():
+    index = request.json.get('index')
+    if 'cart' in session and 0 <= index < len(session['cart']):
+        # Remove the item at the specified index
+        session['cart'].pop(index)
+        session.modified = True
+        return jsonify({"success": True})
+    return jsonify({"success": False})
+
+@app.route("/cart")
+def view_cart():
+    cart_items = session.get('cart', [])
+    return render_template("cart.html", cart_items=cart_items)
+
+@app.route("/", methods=["GET", "POST"])
+def home():
+    cart_items = session.get('cart', [])
+    return render_template("index.html", cart_count=len(cart_items))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)

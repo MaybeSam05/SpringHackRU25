@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopWise - Cart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        .cart-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 20px;
+        }
+        .cart-item-details {
+            flex-grow: 1;
+        }
+        .cart-item-category {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        .cart-item-name {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+        .cart-item-price {
+            font-weight: bold;
+            color: #4CAF50;
+            font-size: 1.2em;
+        }
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .back-button:hover {
+            background-color: #45a049;
+        }
+        .empty-cart {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        .remove-button {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .remove-button:hover {
+            background-color: #cc0000;
+        }
+        .total-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .total-price {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <h1 class="title">Your Shopping Cart</h1>
+        <a href="/" class="back-button">← Back to Home</a>
+        
+        {% if cart_items %}
+            {% for item in cart_items %}
+                <div class="cart-item" data-item-index="{{ loop.index0 }}">
+                    <img src="{{ item.image }}" alt="{{ item.name }}">
+                    <div class="cart-item-details">
+                        <div class="cart-item-category">{{ item.category.title() }}</div>
+                        <div class="cart-item-name">{{ item.name }}</div>
+                        <div class="cart-item-price">${{ item.price }}</div>
+                    </div>
+                    <button class="remove-button" onclick="removeFromCart({{ loop.index0 }})">🗑️</button>
+                </div>
+            {% endfor %}
+            
+            <div class="total-section">
+                <h3>Total: <span class="total-price">$<span id="total-amount">0.00</span></span></h3>
+            </div>
+        {% else %}
+            <div class="empty-cart">
+                <h2>Your cart is empty</h2>
+                <p>Go back to add some items!</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        // Calculate and display total
+        function updateTotal() {
+            const priceElements = document.querySelectorAll('.cart-item-price');
+            let total = 0;
+            priceElements.forEach(element => {
+                const price = parseFloat(element.textContent.replace('$', ''));
+                total += price;
+            });
+            document.getElementById('total-amount').textContent = total.toFixed(2);
+        }
+
+        // Remove item from cart
+        function removeFromCart(index) {
+            fetch('/remove-from-cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ index: index })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const itemElement = document.querySelector(`[data-item-index="${index}"]`);
+                    itemElement.remove();
+                    updateTotal();
+                    
+                    // If cart is empty, show empty cart message
+                    if (document.querySelectorAll('.cart-item').length === 0) {
+                        location.reload();
+                    }
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Calculate initial total when page loads
+        document.addEventListener('DOMContentLoaded', updateTotal);
+    </script>
+</body>
+</html>
