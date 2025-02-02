@@ -21,7 +21,7 @@ def submit():
         individual_data = mergeDataImage(website, images) # [["hamburger", "10.99", img], ["buns", "2.99", img]]
         final_data.append(individual_data)
 
-    return render_template('confirm.html', data=final_data, ingredients=ingredients)
+    return render_template('confirm.html', food=user_input,data=final_data, ingredients=ingredients)
 
 if __name__ == '__main__':
     app.run(debug=True)
