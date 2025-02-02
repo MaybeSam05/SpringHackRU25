@@ -3,75 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmation Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #333;
-            margin-bottom: 30px;
-        }
-        .ingredient {
-            margin-bottom: 30px;
-            text-align: left;
-        }
-        .ingredient h2 {
-            margin-bottom: 10px;
-            color: #555;
-        }
-        .products {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            align-items: center;
-            justify-items: center;
-        }
-        .product {
-            background: #f0f0f0;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .product img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        .product p {
-            margin: 5px 0;
-            font-size: 14px;
-            color: #333;
-        }
-        .product .price {
-            font-weight: bold;
-            color: #007BFF;
-        }
-    </style>
+    <title>ShopWise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>{{ food }}</h1>
+        <h1 class="title">ShopWise</h1>
+        <h2 class="title">Click an item to add to Cart</h2>
         {% for i in range(data|length) %}
-            <div class="ingredient">
+            <div class="card ingredient">
                 <h2>{{ ingredients[i].title() }}</h2>
                 <div class="products">
                     {% for item in data[i] %}
-                        <div class="product">
+                        <div class="product card">
                             <img src="{{ item[2] }}" alt="{{ item[0] }}">
                             <p>{{ item[0] }}</p>
                             <p class="price">${{ item[1] }}</p>

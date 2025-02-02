@@ -85,9 +85,21 @@ def clean_data(data):
 def mergeDataImage(data_list, img_list):
     return [item + [img] for item, img in zip(data_list, img_list)]
 
+def high_to_low(data, type):
+    if (type == 1):
+        # high to low
+        ddata = sorted(data, key=lambda x: float(x[1]), reverse=True)
+        return ddata
+    else:
+        # low to high
+        adata = sorted(data, key=lambda x: float(x[1]))
+        return adata
+
 if __name__ == "__main__":
     dish = "hamburger"
     get_ingredients(dish)
     website = get_website_data("hamburger buns")
     images = get_images("hamburger buns")
-    mergeDataImage(website, images)
+    data = mergeDataImage(website, images)
+    print(high_to_low(data, 0))
+    sys.exit()

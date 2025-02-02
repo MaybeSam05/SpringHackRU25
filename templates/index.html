@@ -22,19 +22,16 @@
                     <form action="/get-items" method="POST">
                         <input type="text" name="user-input" placeholder="e.g., Hamburger, Pasta, Pizza, ...">
                         <h2>Filters</h2>
-                        <select>
-                            <option>None</option>
-                            <option>High to Low</option>
-                            <option>Low to High</option>
+                        <select name="filter">
+                            <option value="none">None</option>
+                            <option value="high-to-low">High to Low</option>
+                            <option value="low-to-high">Low to High</option>
                         </select>
                         <button type="submit">Add Meal</button>
                     </form>
                 </div>
 
-                <div class="available-ingredients card">
-                    <h2>Available Ingredients</h2>
-                    <p>Enter a recipe above to see available ingredients and prices</p>
-                </div>
+                    <h2>Enter a meal above to see available ingredients and prices</h2>
             </main>
         </div>
     </div>
