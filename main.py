@@ -16,7 +16,9 @@ def get_ingredients(user_input):
                 {"role": "user", "content": f"Here is the name of the dish: {user_input}. Return ONLY the ingredients seperated by commas. No other text"} ]
             )
 
-    return(response.choices[0].message.content)
+    raw_response = response.choices[0].message.content
+    ingredients = [ingredient.strip() for ingredient in raw_response.split(",")]
+    return ingredients
 
 def get_website_data(ingredient):
     ingredient = ingredient.replace(" ", "%20")
