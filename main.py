@@ -36,7 +36,7 @@ def get_website_data(ingredient):
         data = [p.text.strip() for p in soup.find_all('p')]
 
         cleaned_data = clean_data(data)
-        cleaned_data = cleaned_data[:5]
+        cleaned_data = cleaned_data[:4]
         return cleaned_data
     except urllib.error.URLError as e:
         return f"Error fetching data: {e}"
@@ -61,7 +61,7 @@ def get_images(ingredient):
         images = [img['src'] for img in soup.find_all('img') if 'src' in img.attrs]
 
         del images[:2]
-        images = images[:5]
+        images = images[:4]
         return images
     except urllib.error.URLError as e:
         return f"Error fetching data: {e}"
