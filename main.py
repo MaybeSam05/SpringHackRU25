@@ -4,6 +4,7 @@ import sys
 import urllib.request
 from bs4 import BeautifulSoup
 import re
+import random
 
 load_dotenv()
 
@@ -94,6 +95,9 @@ def high_to_low(data, type):
         # low to high
         adata = sorted(data, key=lambda x: float(x[1]))
         return adata
+
+def generateKey():
+    return str(random.randint(100000000, 999999999))
 
 if __name__ == "__main__":
     dish = "hamburger"

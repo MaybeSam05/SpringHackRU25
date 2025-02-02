@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session
-from  main import get_ingredients, get_website_data, get_images, clean_data, mergeDataImage, high_to_low
+from  main import get_ingredients, get_website_data, get_images, clean_data, mergeDataImage, high_to_low, generateKey
 import json
 import os
 import sys
-import random
 
 app = Flask(__name__)
 app.secret_key = generateKey()
@@ -82,9 +81,6 @@ def view_cart():
 def home():
     cart_items = session.get('cart', [])
     return render_template("index.html", cart_count=len(cart_items))
-
-def generateKey():
-    return str(random.randint(100000000, 999999999))
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
