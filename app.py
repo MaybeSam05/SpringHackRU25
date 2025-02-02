@@ -15,7 +15,6 @@ def submit():
     final_data = []
     user_input = request.form.get("user-input") # hamburger buns
     selected_filter = request.form.get('filter')
-    print(selected_filter)
 
     if selected_filter == "none":
         ingredients = get_ingredients(user_input) # ["hamburger", "buns"]
