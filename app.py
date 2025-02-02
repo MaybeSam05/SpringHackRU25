@@ -5,7 +5,6 @@ import os
 import sys
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-here'  # Add this line for session support
 
 @app.route("/get-items", methods=["GET", "POST"])
 def submit():
