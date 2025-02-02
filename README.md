@@ -82,10 +82,11 @@ ShopWise is a web application that helps users find the best prices for ingredie
 
 ## Contributors
 
-Samarth Verma - MaybeSam05
-Dhruv Agarwal - DhruvNA05
-Gravit Bali - GravitB
-Sai Suhas Chekka - SSC
+- Name - GitHub Username
+- Samarth Verma - MaybeSam05
+- Dhruv Agarwal - DhruvNA05
+- Gravit Bali - GravitB
+- Sai Suhas Chekka - SSC
 
 #### Contributions welcome! Feel free to submit pull requests.
 
