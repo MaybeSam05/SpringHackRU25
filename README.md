@@ -1,5 +1,7 @@
 # ShopWise
 
+## https://shopwise-y99m.onrender.com/
+
 ShopWise is a web application that helps users find the best prices for ingredients needed to prepare their favorite meals. It utilizes web scraping to fetch ingredient prices from ShopRite, displays them with images, and allows users to add selected items to a shopping cart.
 
 ## Features
