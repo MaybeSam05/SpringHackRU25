@@ -40,7 +40,7 @@ def get_website_data(ingredient):
 
         cleaned_data = clean_data(data)
         cleaned_data = cleaned_data[:4]
-        return cleaned_data
+        return cleaned_dat
     except urllib.error.URLError as e:
         return f"Error fetching data: {e}"
 
