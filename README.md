@@ -82,14 +82,6 @@ ShopWise is a web application that helps users find the best prices for ingredie
 - Implement user authentication for saved carts.
 - Introduce a recipe suggestion feature.
 
-## Contributors
-
-- Name - GitHub Username
-- Samarth Verma - MaybeSam05
-- Dhruv Agarwal - DhruvNA05
-- Gravit Bali - GravitB
-- Sai Suhas Chekka - SSC
-
 #### Contributions welcome! Feel free to submit pull requests.
 
 # Enjoy and Shop Wise!
